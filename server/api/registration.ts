@@ -22,8 +22,10 @@ export default defineEventHandler(async (event) => {
     await payjp.tenants.create(
       {
         name: "テナントA",
+        // テストのため固定していますが、未指定の場合自動生成してくれます
         id: 'test',
         platform_fee_rate: 10.15,
+        // これもとりあえずの固定
         bank_code: "0038",
         bank_branch_code: "100",
         bank_account_type: body.accountType,

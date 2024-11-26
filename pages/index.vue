@@ -33,14 +33,14 @@ const products = [
 
 <template>
     <div class="product-list">
-      <div class="product" v-for="product in products" :key="product.id">
+      <NuxtLink :to="`/products/${product.id}`" class="product" v-for="product in products" :key="product.id">
         <img :src="product.image" alt="Product">
         <div class="product-info">
           <p class="product-title">{{product.title}}</p>
           <p class="product-price">¥{{product.price.toLocaleString()}}</p>
           <p class="product-description">{{product.description}}</p>
         </div>
-      </div>
+      </NuxtLink>
     </div>
 </template>
 

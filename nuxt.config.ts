@@ -6,7 +6,9 @@ export default defineNuxtConfig({
     "./assets/css/common.css"
   ],
   runtimeConfig: {
-    // これらの環境変数はサーバーサイドでのみアクセスできます
-    payjpSecretKey: process.env.PAYJP_SECRET_KEY,  // サーバーサイドで利用
+    payjpSecretKey: process.env.PAYJP_SECRET_KEY,
+    public: {
+      payjpPublicKey: process.env.PAYJP_PUBLIC_KEY,
+    },
   }
 })

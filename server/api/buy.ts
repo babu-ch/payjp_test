@@ -3,6 +3,7 @@ import Payjp from 'payjp';
 type BuyBody = {
   price: number;
   productId: string;
+  token:string;
 }
 
 export default defineEventHandler(async (event) => {
@@ -15,22 +16,11 @@ export default defineEventHandler(async (event) => {
     const config = useRuntimeConfig()
     const payjp = Payjp(config.payjpSecretKey);
 
-    const token = await payjp.tokens.create({
-      card: {
-        number: 4242424242424242,
-        cvc: 123,
-        exp_month: 2,
-        exp_year: 2099
-      },
-    }, {
-      'X-Payjp-Direct-Token-Generate': 'true'
-    });
-
     await payjp.charges.create(
       {
         amount: body.price,
         currency: "jpy",
-        card: token.id,
+        card: body.token,
         capture: true,
         tenant: "test",
       }
@@ -39,6 +29,7 @@ export default defineEventHandler(async (event) => {
     if (e.response) {
       console.error(e.response.text);
     }
+    return { success: false }
   }
-  return { }
+  return { success: true }
 })
