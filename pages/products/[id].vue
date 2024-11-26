@@ -31,7 +31,7 @@ useHead({
 })
 
 const payjp = ref<Payjp.PayjpInstance>()
-const cardElement = ref<{mount:(arg:string) => void}>();
+const cardElement = ref<ReturnType<Payjp.Elements["create"]>>();
 onMounted(() => {
   const config = useRuntimeConfig()
   payjp.value = Payjp(config.public.payjpPublicKey)
