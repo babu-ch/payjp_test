@@ -25,15 +25,22 @@ useHead({
   script: [
     {
       type: "text/javascript",
-      src: "https://js.pay.jp/v2/pay.js"
+      src: "https://js.pay.jp/v2/pay.js",
+      onload() {
+          payjpLoaded.value = true;
+      },
     }
   ]
 })
+const payjpLoaded = ref(false);
 
 const payjp = ref<Payjp.PayjpInstance>()
 const cardElement = ref<ReturnType<Payjp.Elements["create"]>>();
-onMounted(() => {
-  const config = useRuntimeConfig()
+watch(payjpLoaded, () => {
+  if (!payjpLoaded.value) {
+    return
+  }
+  const config = useRuntimeConfig();
   payjp.value = Payjp(config.public.payjpPublicKey)
   // elementsを取得します。ページ内に複数フォームを用意する場合は複数取得してください
   const elements = payjp.value.elements()
