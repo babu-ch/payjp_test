@@ -65,12 +65,12 @@ function onSubmit() {
       <p class="product-description">
         この商品は非常に便利で、日常生活に欠かせないものです。お早めにお買い求めください。
       </p>
-      <div style="margin-bottom: 10px">
-        <p>カード情報を登録</p>
+      <div style="padding: 10px; margin:10px;">
+        <p>カード情報を登録(フォーム出てない場合はリロードしてください)</p>
         <div id="v2-demo" class="payjs-outer"></div>
         <button @click="onSubmit">トークン作成</button>
       </div>
-      <a href="#" class="buy-now" @click.prevent="buy">今すぐ購入</a>
+      <a href="#" class="buy-now" :class="{disabled:!token}" @click.prevent="buy">今すぐ購入</a>
     </div>
   </div>
 </template>
@@ -117,6 +117,10 @@ function onSubmit() {
   border-radius: 4px;
   font-size: 1rem;
   transition: background-color 0.2s ease;
+}
+.disabled {
+  background-color: grey;
+  pointer-events: none;
 }
 .buy-now:hover {
   background-color: #0056b3;
